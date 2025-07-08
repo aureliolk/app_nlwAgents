@@ -15,5 +15,10 @@ pnpm install tailwindcss @tailwindcss/vite
 Install Shadcn ui // https://ui.shadcn.com/docs/installation/vite
 
 
-#Intall Route App
+#Install Route App
 pnpm install react-router-dom
+
+
+#Install React Query for Request API
+pnpm install @tanstack/react-query
+
