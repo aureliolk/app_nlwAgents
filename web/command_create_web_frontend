@@ -1,0 +1,19 @@
+# Start Projec Vite
+pnpm create vite@latest .
+choose: react
+choose: typescritp
+
+
+#Install Biome for Padronization App
+pnpm install @biomejs/biome -D
+npx ultracite 
+
+
+#Install TailWindCss
+pnpm install tailwindcss @tailwindcss/vite
+
+Install Shadcn ui // https://ui.shadcn.com/docs/installation/vite
+
+
+#Intall Route App
+pnpm install react-router-dom
