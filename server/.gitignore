@@ -1,0 +1,7 @@
+node_modules
+.vscode
+.env
+command_create_server_backend
+docker-compose.yml
+
+
