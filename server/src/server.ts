@@ -15,7 +15,7 @@ const serverUrl = env.SERVER_URL;
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyCors, {
-	origin: serverUrl,
+	origin: [serverUrl, "http://localhost:5173"],
 });
 
 app.setSerializerCompiler(serializerCompiler);
