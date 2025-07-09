@@ -7,6 +7,9 @@ import {
 } from "fastify-type-provider-zod";
 import { env } from "./env.ts";
 import "./db/conection.ts";
+import { createQuestionsRoom } from "./http/routes/create-question-room.ts";
+import { createRoomRoute } from "./http/routes/create-rooms.ts";
+import { getRoomQuestionsRoute } from "./http/routes/get-room-questions.ts";
 import { getRoomsRoute } from "./http/routes/get-rooms.ts";
 
 const ports = env.PORT;
@@ -26,6 +29,9 @@ app.get("/health", () => {
 });
 
 app.register(getRoomsRoute);
+app.register(createRoomRoute);
+app.register(getRoomQuestionsRoute);
+app.register(createQuestionsRoom);
 
 app.listen({ port: Number(ports) }).then(() => {
 	console.log(`Server is running on ${serverUrl}:${ports}`);
