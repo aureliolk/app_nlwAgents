@@ -1,8 +1,8 @@
-# Dockerfile.production - Para builds de produção
-FROM node:20-alpine AS dependencies
+# Dockerfile para produção com Node.js 22
+FROM node:22-alpine AS dependencies
 
 # Instalar dependências do sistema
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache libc6-compat curl
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 
 # Stage 2: Build da aplicação
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
@@ -32,15 +32,15 @@ RUN pnpm install --frozen-lockfile
 # Copiar código fonte
 COPY . .
 
-# Build da aplicação (se necessário)
-# RUN pnpm run build
-
 # Stage 3: Runtime
-FROM node:20-alpine AS runtime
+FROM node:22-alpine AS runtime
+
+# Instalar curl para healthcheck
+RUN apk add --no-cache curl
 
 # Criar usuário não-root
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001
 
 # Instalar pnpm
 RUN npm install -g pnpm
@@ -65,7 +65,7 @@ ENV PORT=3333
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node --eval "fetch('http://localhost:3333/health').then(() => process.exit(0)).catch(() => process.exit(1))" || exit 1
+  CMD curl -f http://localhost:3333/health || exit 1
 
-# Comando de inicialização
+# Comando de inicialização para PRODUÇÃO
 CMD ["pnpm", "dev"]
