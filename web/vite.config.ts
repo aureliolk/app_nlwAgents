@@ -13,11 +13,7 @@ export default defineConfig({
 	},
 	build: {
 		rollupOptions: {
-			external: [],
-			// Ou se necessário, adicione o dayjs locale explicitamente
+			external: ["dayjs/locale/pt-BR", "dayjs/locale/pt-br"]
 		}
-	},
-	optimizeDeps: {
-		include: ["dayjs/locale/pt-br"]
 	}
 });
