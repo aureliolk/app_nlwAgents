@@ -26,7 +26,9 @@ Content-Type: application/json
 
 ###
 
-@roomId = {{createRoom.response.body.$.roomId}}
+# @roomId = {{createRoom.response.body.$.roomId}}
+@roomId = d719db66-c60a-40a5-82db-32683f9f7a69
+
 
 ###
 #Get Question Room
@@ -36,10 +38,16 @@ GET {{baseUrl}}/rooms/{{roomId}}/questions
 ###
 #Create Question Room
 # @name createQuestionRoom
-POST {{baseUrl}}/rooms/{{roomId}}/questions
+POST {{baseUrl}}/rooms/d719db66-c60a-40a5-82db-32683f9f7a69/questions
 Accept: application/application/json
 Content-Type: application/json
 
 {
-  "question": "You is developer"
+  "question": "O que e react?"
 }
+
+###
+#Create Question Room
+# @name deleteQuestionRoom
+DELETE {{baseUrl}}/rooms/{{roomId}}/questions/f4c70061-f6bc-42b0-94c4-70b950e95770
+

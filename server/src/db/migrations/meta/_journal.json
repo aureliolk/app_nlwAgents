@@ -15,6 +15,20 @@
       "when": 1752072231195,
       "tag": "0001_shallow_the_order",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752364719502,
+      "tag": "0002_young_deadpool",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752367953922,
+      "tag": "0003_lonely_excalibur",
+      "breakpoints": true
     }
   ]
 }
