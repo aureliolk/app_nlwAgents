@@ -1,5 +1,6 @@
 export type CreateQuestionRoomResponse = {
-  roomId: string;
+  id: string;
+  answer: string | null
 };
 
 export type DeleteQuestionResponse = {

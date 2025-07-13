@@ -27,12 +27,12 @@ export function Room() {
 								Voltar ao Início
 							</Button>
 						</Link>
-						<Link to={`/room/${params.roomId}/audio`}>
+						{/* <Link to={`/room/${params.roomId}/audio`}>
 							<Button className="flex items-center gap-2" variant="secondary">
 								<Radio className="size-4" />
 								Gravar Áudio
 							</Button>
-						</Link>
+						</Link> */}
 						<RecordingAudio />
 					</div>
 					<h1 className="mb-2 font-bold text-3xl text-foreground">

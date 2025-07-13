@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { id } from "zod/v4/locales";
 import type { CreateQuestionRoomRequest } from "./types/create-question-room-request";
 import type { GetRoomQuestionResponse } from "./types/get-room-question-response";
-import type { CreateQuestionRoomResponse, DeleteQuestionResponse } from "./types/questions";
+import type {
+	CreateQuestionRoomResponse,
+	DeleteQuestionResponse,
+} from "./types/questions";
 
 export function getQuestionRoom(roomId: string) {
 	return useQuery({
@@ -36,9 +40,72 @@ export function useCreateQuestionRoom(roomId: string) {
 
 			return result;
 		},
-		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["getQuestionRoom", roomId] });
+
+		onMutate({ question }) {
+			const questions = queryClient.getQueryData<GetRoomQuestionResponse>([
+				"getQuestionRoom",
+				roomId,
+			]);
+
+			const questionsArray = questions ?? [];
+
+			const newQuestion = {
+				id: crypto.randomUUID(),
+				question,
+				answer: null,
+				createdAt: new Date().toDateString(),
+				isGeneratingAnswer: true
+			}
+
+			queryClient.setQueryData<GetRoomQuestionResponse>(
+				["getQuestionRoom", roomId],
+				[
+					newQuestion,
+					...questionsArray,
+				],
+			);
+
+			return { newQuestion, questions }
 		},
+
+		onError(_error, _variables, context) {
+			queryClient.setQueryData<GetRoomQuestionResponse>(
+				["getQuestionRoom", roomId],
+				context?.questions,
+			);
+		},
+
+		onSuccess(data, variables, context) {
+			queryClient.setQueryData<GetRoomQuestionResponse>(
+				["getQuestionRoom", roomId],
+				questions => {
+					if (!questions) {
+						return questions
+					}
+
+					if (!context.newQuestion) {
+						return questions
+					}
+
+					return questions.map(question => {
+						if (question.id === context.newQuestion.id) {
+							return {
+								...context.newQuestion,
+								id: data.id,
+								answer: data.answer,
+								isGeneratingAnswer: false
+							}
+						}
+
+						return question
+					})
+				}
+			);
+		},
+
+		// onSuccess: () => {
+		// 	queryClient.invalidateQueries({ queryKey: ["getQuestionRoom", roomId] });
+		// },
 	});
 }
 
@@ -51,7 +118,7 @@ export function useDeleteQuestionRoom(roomId: string, questionId: string) {
 				`http://localhost:3333/rooms/${roomId}/questions/${questionId}`,
 				{
 					method: "DELETE",
-				}
+				},
 			);
 
 			if (res.status === 204) {

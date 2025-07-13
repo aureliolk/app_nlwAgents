@@ -20,17 +20,7 @@ export function QuestionList(props: QuestionListProps) {
 
       {data?.map((question) => {
         return (
-          <div key={question.id}>
-            <QuestionItem
-              question={{
-                id: question.id,
-                question: question.question || "",
-                answer: question.answer,
-                createdAt: question.createdAt,
-                roomId: props.roomId
-              }}
-            />
-          </div>
+          <QuestionItem key={question.id} question={question} />
         )
       })}
     </div>
