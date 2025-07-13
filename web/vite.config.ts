@@ -11,4 +11,13 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src"),
 		},
 	},
+	build: {
+		rollupOptions: {
+			external: [],
+			// Ou se necessário, adicione o dayjs locale explicitamente
+		}
+	},
+	optimizeDeps: {
+		include: ["dayjs/locale/pt-br"]
+	}
 });
