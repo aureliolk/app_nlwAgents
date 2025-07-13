@@ -68,4 +68,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node --eval "fetch('http://localhost:3333/health').then(() => process.exit(0)).catch(() => process.exit(1))" || exit 1
 
 # Comando de inicialização
-CMD ["pnpm", "start"]
+CMD ["pnpm", "dev"]
