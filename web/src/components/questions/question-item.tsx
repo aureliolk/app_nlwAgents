@@ -1,7 +1,6 @@
-import { Bot, Loader2, MessageSquare, Trash } from "lucide-react";
+import { Bot, Loader2, MessageSquare } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { dayjs } from "@/lib/dayjs";
-import { Button } from "../ui/button";
 
 interface Question {
   id: string;
@@ -17,11 +16,6 @@ interface QuestionItemProps {
 
 export function QuestionItem({ question }: QuestionItemProps) {
 
-
-
-  async function handleDeleteQuestion() {
-    console.log('Deletado')
-  }
 
   console.log('Log Is Generating Ansewer', question.isGeneratingAnswer)
 

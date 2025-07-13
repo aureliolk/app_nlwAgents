@@ -1,4 +1,4 @@
-import { ArrowLeft, Radio } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { QuestionForm } from "@/components/questions/question-form";
 import { QuestionList } from "@/components/questions/question-list";

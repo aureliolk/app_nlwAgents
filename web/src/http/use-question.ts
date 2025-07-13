@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { id } from "zod/v4/locales";
 import type { CreateQuestionRoomRequest } from "./types/create-question-room-request";
 import type { GetRoomQuestionResponse } from "./types/get-room-question-response";
 import type {
@@ -75,7 +74,7 @@ export function useCreateQuestionRoom(roomId: string) {
 			);
 		},
 
-		onSuccess(data, variables, context) {
+		onSuccess(data, _variables, context) {
 			queryClient.setQueryData<GetRoomQuestionResponse>(
 				["getQuestionRoom", roomId],
 				questions => {
