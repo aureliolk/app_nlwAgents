@@ -21,7 +21,7 @@ const serverUrl = env.SERVER_URL;
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
 app.register(fastifyCors, {
-	origin: [serverUrl, "http://localhost:5173"],
+	origin: ["*"],
 	methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
 
@@ -42,5 +42,5 @@ app.register(uploadAudio)
 
 
 app.listen({ port: Number(ports) }).then(() => {
-	console.log(`Server is running on ${serverUrl}:${ports}`);
+	console.log(`Server is running on ${serverUrl} || PORTS:${ports}`);
 });
